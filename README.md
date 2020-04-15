@@ -32,8 +32,20 @@ Before building exon index directory, three types of files are necessary. If a u
 containing all the necessary files formatted as below.
 
 	* BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
-exon’s start position and then by exon’s end position. Tab-delimited column names of the files are:<br/>① chromosome<br/>② exon’s start position<br/>③ exon’s end position<br/>④ transcript’s accession . gene name . exon number<br/>⑤ 0 (always)<br/>⑥ transcribed strand
-	* “transcript.bed” for transcript information. Tab-delimited column names of the file are:<br/>① chromosome<br/>② transcript’s start position<br/>③ transcript’s end position<br/>④ transcript’s accession<br/>⑤ 0 (always)<br/>⑥ transcribed strand
+exon’s start position and then by exon’s end position. Tab-delimited column names of the files are:
+		* chromosome
+		* exon’s start position
+		* exon’s end position
+		* transcript’s accession.gene name.exon number
+		* 0 (always)
+		* transcribed strand
+	* “transcript.bed” for transcript information. Tab-delimited column names of the file are:
+		* chromosome
+		* transcript’s start position
+		* transcript’s end position
+		* transcript’s accession
+		* 0 (always)
+		* transcribed strand
 	* “transcript.fasta” for transcript nucleotide sequence information (FASTA format).
 
 ```
@@ -64,6 +76,22 @@ straightforward. Please run “build_idxDir.py” also included in the package.
 
 ### Running GFP
 
+```
+GFP --- A tool to detect fusion genes using RNA-Seq
+
+Required parameters
+	-i <string>		GSNAP result file.
+	-d <string>		Pre-built exon index directory.
+	-o <string>		Output prefix.
+	--bl2seq <string>	bl2seq excutable path.
+	
+Optional parameters
+	--mpair <integer>	Minimum # of discordant read-pairs, DEFAULT: 1.
+	--mspan <integer>	Minimum # of fusion spanning reads, DEFAULT: 2.
+	--mcov <integer>	Minimum # of base-pairs for both genes, DEFAULT: 10.
+	--mshift <integer>	Minimum # of shifting pattern(bp), DEFAULT: 1.
+```
+
 Once building the exon index directory is completed, you are ready to run GFP.
 
 * Optional parameters
@@ -73,3 +101,32 @@ Once building the exon index directory is completed, you are ready to run GFP.
 be discarded.
 	* --mshift: a fusion point (exon-exon boundary) is considered a genuine fusion point when fusionspanning
 reads around the fusion point show at least (value) shifting pattern.
+
+### Output Files
+
+GFP generates three output files:
+
+* "\<output prefix\>_raw.txt” – shows raw fusion evidence extracted from GSNAP alignment results.
+
+* “\<output prefix\>_fusionList.txt” – shows gene fusions which satisfied user-defined parameter settings and passed through filtering steps implemented by the program and its format is described below.<br/>
+
+| Name | Type | Description |
+| --- | --- | --- |
+| ID | String | Serial number for each gene fusion discovered |
+| donor | String | Donor gene located at 5' position in fusion context |
+| acceptor | String | Acceptor gene located at 3' position in fusion context |
+| context | String | Fusion context: either "INTRA" or "INTER" |
+| dist | Integer | Genomic distance between fusion genes |
+| num_pair | Integer | \# of fusion-supporting discordant read-pairs |
+| num_span | Integer | \# of fusion-supporting fusion-spanning reads |
+
+* “\<output prefix\>_fusionEvidence.txt” – contains more detailed information on gene fusions listed in the gene fusion list file including genomic positions and exon numbers for supporting fusion evidence.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| ID | String | Serial number for each gene fusion discovered |
+| evidence_type | String | Evidence type: either "read-pair" or "Spanning_read" |
+| donor_pos | String | Genomic position in donor gene |
+| acceptor_pos | String | Genomic position in acceptor gene |
+| donor_exon | String | Exon number(s) in donor gene |
+| acceptor_exon | String | Exon number(s) in acceptor gene |
