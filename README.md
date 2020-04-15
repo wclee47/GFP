@@ -30,8 +30,11 @@ python setup.py install
 1. Preparing preliminary files<br/>
 Before building exon index directory, three types of files are necessary.
 
-	1. BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
+	* BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
 exon’s start position and then by exon’s end position. Tab-delimited column names of the files are:<br/>① chromosome<br/>② exon’s start position<br/>③ exon’s end position<br/>④ transcript’s accession . gene name . exon number<br/>⑤ 0 (always)<br/>⑥ transcribed strand
+	* “transcript.bed” for transcript information. Tab-delimited column names of the file are:<br/>① chromosome<br/>② transcript’s start position<br/>③ transcript’s end position<br/>④ transcript’s accession<br/>⑤ 0 (always)<br/>⑥ transcribed strand
+	* “transcript.fasta” for transcript nucleotide sequence information (FASTA format).
+
 ```
 ...
 chr1 850983 851043 NM_152486.SAMD11.exon1 0 +
@@ -39,10 +42,22 @@ chr1 851164 851256 NM_152486.SAMD11.exon2 0 +
 chr1 855397 855579 NM_152486.SAMD11.exon3 0 +
 ...
 ```
-	2. “transcript.bed” for transcript information. Tab-delimited column names of the file are:<br/>① chromosome<br/>② transcript’s start position<br/>③ transcript’s end position<br/>④ transcript’s accession<br/>⑤ 0 (always)<br/>⑥ transcribed strand
 ```
 chr1 67051161 67163158 NM_024763 0 -
 chr1 67075872 67163158 NM_207014 0 -
 chr1 8335051 8800286 NM_001042681 0 -
 chr1 8335051 8406334 NM_001042682 0 -
 ```
+```
+>NM_001005484
+ATGGTGACTGAATTCATTTTTCTGGGTCTCTCTGATTCTCAGGAACTCCAGACCTTCCTATTTA
+TGTTGTTTTTTGTATTCTATGGAGGAATCGTGTTTGGAAACC…
+>NM_001005224
+ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATT…
+…
+```
+
+If a user plans to use “refGene,txt” (can be downloaded from UCSC database (http://
+http://genome.ucsc.edu/) as a gene annotation file, all the necessary files are automatically created by
+running “refGene2bed.py” included in GFP package. Otherwise, users should make a directory
+containing all the necessary files formatted as above.
