@@ -28,7 +28,8 @@ python setup.py install
 ### Preparation (building exon index directory)
 
 1. Preparing preliminary files<br/>
-Before building exon index directory, three types of files are necessary.
+Before building exon index directory, three types of files are necessary. If a user plans to use “refGene,txt” (can be downloaded from UCSC database (http://genome.ucsc.edu/) as a gene annotation file, all the necessary files are automatically created by running “refGene2bed.py” included in GFP package. Otherwise, users should make a directory
+containing all the necessary files formatted as below.
 
 	* BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
 exon’s start position and then by exon’s end position. Tab-delimited column names of the files are:<br/>① chromosome<br/>② exon’s start position<br/>③ exon’s end position<br/>④ transcript’s accession . gene name . exon number<br/>⑤ 0 (always)<br/>⑥ transcribed strand
@@ -57,7 +58,18 @@ ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATT…
 …
 ```
 
-If a user plans to use “refGene,txt” (can be downloaded from UCSC database (http://
-http://genome.ucsc.edu/) as a gene annotation file, all the necessary files are automatically created by
-running “refGene2bed.py” included in GFP package. Otherwise, users should make a directory
-containing all the necessary files formatted as above.
+2. Building exon index directory<br/>
+Once a directory with all the preliminary files is prepared, building the exon index directory is
+straightforward. Please run “build_idxDir.py” also included in the package.
+
+### Running GFP
+
+Once building the exon index directory is completed, you are ready to run GFP.
+
+* Optional parameters
+	* --mpair : only gene fusions with ≥ (value) will be reported.
+	* --mspan: only gene fusions with ≥ (value) will be reported.
+	* --mcov: fusion-spanning reads which cover any of the exons from the two genes by < (value) will
+be discarded.
+	* --mshift: a fusion point (exon-exon boundary) is considered a genuine fusion point when fusionspanning
+reads around the fusion point show at least (value) shifting pattern.
