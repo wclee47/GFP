@@ -30,7 +30,7 @@ python setup.py install
 1. Preparing preliminary files<br/>
 Before building exon index directory, three types of files are necessary.
 
-  1. BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
+	1. BED files (e.g. chr1.bed, chr2.bed …) for exon information. Each bed file should be first sorted by
 exon’s start position and then by exon’s end position. Tab-delimited column names of the files are:<br/>① chromosome<br/>② exon’s start position<br/>③ exon’s end position<br/>④ transcript’s accession . gene name . exon number<br/>⑤ 0 (always)<br/>⑥ transcribed strand
 ```
 ...
@@ -39,7 +39,7 @@ chr1 851164 851256 NM_152486.SAMD11.exon2 0 +
 chr1 855397 855579 NM_152486.SAMD11.exon3 0 +
 ...
 ```
-  2. “transcript.bed” for transcript information. Tab-delimited column names of the file are:<br/>① chromosome<br/>② transcript’s start position<br/>③ transcript’s end position<br/>④ transcript’s accession<br/>⑤ 0 (always)<br/>⑥ transcribed strand
+	2. “transcript.bed” for transcript information. Tab-delimited column names of the file are:<br/>① chromosome<br/>② transcript’s start position<br/>③ transcript’s end position<br/>④ transcript’s accession<br/>⑤ 0 (always)<br/>⑥ transcribed strand
 ```
 chr1 67051161 67163158 NM_024763 0 -
 chr1 67075872 67163158 NM_207014 0 -
