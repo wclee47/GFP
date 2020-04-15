@@ -125,7 +125,7 @@ GFP generates three output files:
 | Name | Type | Description |
 | --- | --- | --- |
 | ID | String | Serial number for each gene fusion discovered |
-| evidence_type | String | Evidence type: either "read-pair" or "Spanning_read" |
+| evidence_type | String | Evidence type: either "read-pair" or "spanning read" |
 | donor_pos | String | Genomic position in donor gene |
 | acceptor_pos | String | Genomic position in acceptor gene |
 | donor_exon | String | Exon number(s) in donor gene |
